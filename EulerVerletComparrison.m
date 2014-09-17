@@ -35,27 +35,35 @@ end
 
 verlet = zeros(1,l);
 
-verelt(1) = theta0;
+verlet(1) = theta0;
 a(1) = (-g/L)*sin(verlet(1));
 
 % This estimates a theta before releasing the pendulum to start the Verlet method
-earlyTheta = verlet(1) + .5*a(1)*dt^2;
+earlyTheta = verlet(1) -v0*dt + .5*a(1)*dt^2;
 
-verlet(2) = 2*verlet(1) - earlyTheta + dt^2*a(n);
+verlet(2) = 2*verlet(1) - earlyTheta + dt^2*a(1);
 
 for n = 2:l-1
 
 a(n) = (-g/L)*sin(verlet(n));
-verlet(n+1) = 2*verlet(1) - verlet(n-1) + dt^2*a(n);
+verlet(n+1) = 2*verlet(n) - verlet(n-1) + dt^2*a(n);
 
 end
 
 %***********************************************************
 % Comparrison
 
+% Change back into degrees
+
+euler = euler.*(180/pi);
+verlet = verlet.*(180/pi);
+
 hold on
 
-plot(time,euler,time,verlet)
+plot(time,euler,time,verlet,'linewidth',1)
 legend('euler','verlet')
+xlabel('time (s)')
+ylabel('theta (degrees)')
+title('Euler vs. Verlet Comparrison')
 
 end
