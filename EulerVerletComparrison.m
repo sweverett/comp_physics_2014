@@ -53,6 +53,9 @@ end
 %***********************************************************
 % Comparrison
 
+% For LaTeX use
+%set(gca,'defaulttextinterpreter','latex');
+
 % Change back into degrees
 
 euler = euler.*(180/pi);
@@ -61,7 +64,7 @@ verlet = verlet.*(180/pi);
 hold on
 
 plot(time,euler,time,verlet,'linewidth',1)
-legend('euler','verlet')
+legend('Euler','Verlet')
 xlabel('time (s)')
 ylabel('theta (degrees)')
 title('Euler vs. Verlet Comparrison')
